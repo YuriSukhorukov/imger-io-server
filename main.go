@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"net"
+	"./protocol"
 )
 import "os"
 import "fmt"
@@ -18,13 +19,20 @@ const MESSAGE_0xAF = 0xAF
 
 // PacketType - первый байт, определяюзий тип пакета
 // Content 	  - содержимое пакета
+//type Field struct {
+//	FieldID byte
+//	FieldSize byte
+//	Contents []byte
+//}
+
 type Packet struct {
 	PacketType byte
+	//PacketSubtype byte
 	Content []byte
+	//Fields []Field
 }
 
 func main() {
-
 	fmt.Println("Launching server...")
 
 	// Устанавливаем прослушивание порта
@@ -71,5 +79,20 @@ func main() {
 		}
 
 		fmt.Printf(string(packet.Content))
+
+		packetType 		:= protocol.CANVAS
+		packetSubtype 	:= protocol.LINE_BEGINNING
+		field1 			:= protocol.Field{FieldID:0xAA, FieldSize:0xAF, Content:buff}
+		field2 			:= protocol.Field{FieldID:0xAA, FieldSize:0xAF, Content:buff}
+
+		fields 			:= []protocol.Field{field1, field2}
+
+		pack := protocol.Packet{
+			PacketType:		packetType,
+			PacketSubtype:	packetSubtype,
+			Fields:			fields,
+		}
+
+		_ := protocol.Pack(pack)
 	}
 }
