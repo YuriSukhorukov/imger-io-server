@@ -3,10 +3,12 @@ package main
 import (
 	"bufio"
 	"net"
-	"./protocol"
 )
 import "os"
 import "fmt"
+import "./protocol"
+import "./model"
+
 // требуется только ниже для обработки примера
 
 const CONN_HOST = "localhost"
@@ -49,7 +51,6 @@ func main() {
 	// Открываем порт
 	conn, _ := ln.Accept()
 	defer conn.Close()
-
 	// Запускаем цикл
 	for {
 		fmt.Printf("\n--->>>\n")
@@ -80,12 +81,13 @@ func main() {
 
 		fmt.Printf(string(packet.Content))
 
+
+
+		point 			:= model.Point{X: 1, Y: 2}
+
 		packetType 		:= protocol.CANVAS
 		packetSubtype 	:= protocol.LINE_BEGINNING
-		field1 			:= protocol.Field{FieldID:0xAA, FieldSize:0xAF, Content:buff}
-		field2 			:= protocol.Field{FieldID:0xAA, FieldSize:0xAF, Content:buff}
-
-		fields 			:= []protocol.Field{field1, field2}
+		fields 			:= protocol.FieldsFromPoint(point)
 
 		pack := protocol.Packet{
 			PacketType:		packetType,

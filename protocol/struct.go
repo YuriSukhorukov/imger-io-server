@@ -12,12 +12,6 @@ type Packet struct {
 	Fields []Field
 }
 
-//type Packet struct {
-//	PacketType byte
-//	PacketSubtype byte
-//	Content []byte
-//}
-
 type Queue struct {
 	Packets []Packet
 }
