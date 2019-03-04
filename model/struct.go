@@ -1,21 +1,21 @@
 package model
 
 type Player struct {
-	name string
-	place uint
-	points uint8
+	Name string
+	Place uint8
+	Points uint8
 }
 
 type Point struct {
-	x uint16
-	y uint16
+	X uint16
+	Y uint16
 }
 
 type Message struct {
-	name string
-	text string
+	Name string
+	Text string
 }
 
 type Time struct {
-	seconds uint16
+	Seconds uint16
 }
