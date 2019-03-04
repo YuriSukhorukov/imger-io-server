@@ -1,7 +1,14 @@
 package protocol
 
+import "fmt"
+
 // распаковщик принимает на вход последодвательность байт, коллекцию типов сообщений
 // а возвращает пакет, готовый к использованию
+
+func Sum (a int, b int) int {
+	fmt.Printf("1!!!!")
+	return a + b
+}
 
 func Unpack(buff []byte) Packet {
 	packetType 		:= buff[0]
@@ -11,15 +18,13 @@ func Unpack(buff []byte) Packet {
 
 	var fieldID 	byte
 	var fieldSize 	byte
+	var content		[]byte
 
-	for i := 2; i < len(buff) - 1; i++ {
+	for i := 2; i < len(buff) - 1; i += int(fieldSize) {
 		fieldID 	= buff[i]
 		fieldSize 	= buff[i+1]
-		if fieldID == 0xAA && fieldSize == 0xAF {
-			fields = append(fields, Field{FieldID: buff[i], FieldSize: buff[i+1]})
-		} else {
-			fields[len(fields)-1].Content = append(fields[len(fields)-1].Content, buff[i])
-		}
+		content		= buff[i + 2:fieldSize]
+		fields 		= append(fields, Field{FieldID: fieldID, FieldSize: fieldSize, Content: content})
 	}
 
 	packet := Packet{

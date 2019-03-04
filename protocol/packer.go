@@ -10,7 +10,7 @@ func Pack(packet Packet) []byte {
 
 	for i := range packet.Fields {
 		fieldsLength += fieldOffset
-		fieldsLength += len(packet.Fields[i].Content)
+		fieldsLength += int(packet.Fields[i].FieldSize)
 	}
 
 	fields := make([]byte, fieldsLength)
@@ -20,7 +20,7 @@ func Pack(packet Packet) []byte {
 		fields = append(fields, packet.Fields[i].Content...)
 	}
 
-	buff := make([]byte, fieldsLength+ packetOffset + 1)
+	buff := make([]byte, fieldsLength + packetOffset + 1)
 
 	buff[0] 			= packet.PacketType
 	buff[1] 			= packet.PacketSubtype
