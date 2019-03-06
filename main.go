@@ -36,7 +36,6 @@ type Packet struct {
 
 func main() {
 	fmt.Println("Launching server...")
-
 	// Устанавливаем прослушивание порта
 	ln, err := net.Listen(CONN_TYPE, CONN_PORT)
 

@@ -1,12 +1,15 @@
 package protocol
 
+import "fmt"
+
 // упаковщик принимает на вход последовательность байт, тип сообщения,
 // а возвращает пакет, готовый к отправке
 
 func Pack(packet Packet) []byte {
-	packetOffset 	:= 2
-	fieldOffset 	:= 2
-	fieldsLength 	:= 0
+	packetHeadOffset 	:= 2
+	fieldOffset 		:= 2
+	fieldsLength 		:= 0
+	packetFooterOffset  := 1
 
 	for i := range packet.Fields {
 		fieldsLength += fieldOffset
@@ -20,12 +23,18 @@ func Pack(packet Packet) []byte {
 		fields = append(fields, packet.Fields[i].Content...)
 	}
 
-	buff := make([]byte, fieldsLength + packetOffset + 1)
+	buff := make([]byte, fieldsLength + packetHeadOffset + packetFooterOffset)
 
 	buff[0] 			= packet.PacketType
 	buff[1] 			= packet.PacketSubtype
-	buff[2:] 			= fields
-	buff[len(buff)-1] 	= 0x00
+	//
+	fmt.Printf("%d", fieldsLength)
+	//for i := 0; i < len(fields); i++ {
+	//
+	//	buff[i + packetHeadOffset] = fields[i]
+	//}
+	//
+	//buff[len(buff) - packetFooterOffset] = 0x00
 
 	return buff
 }
