@@ -8,8 +8,8 @@ import (
 func TestEncodeDecode (t *testing.T) {
 	number 		:= 123456789
 	buff 		:= binary.Encode(number)
-	final   	:= 123456789
 	result 		:= binary.Decode(buff)
+	final   	:= 123456789
 
 	if result != final {
 		t.Error("Wrong converted")
