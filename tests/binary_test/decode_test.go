@@ -7,8 +7,8 @@ import (
 
 func TestDecode (t *testing.T) {
 	buff 			:= []byte{4, 1}
-	final 			:= 260
 	result 			:= binary.Decode(buff)
+	final 			:= 260
 
 	if result != final {
 		t.Error("Wrong converted")
