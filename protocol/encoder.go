@@ -1,17 +1,22 @@
-package protocol
+package model
 
-import "../model"
+import "./"
+import "../binary"
 
 func FieldsFromPlayer(p model.Player) []Field {
-	a := []byte(p.Name)
-	b := []byte{byte(p.Place)}
-	c := []byte{byte(p.Points)}
+	name 	:= p.Name
+	place 	:= int(p.Place)
+	points 	:= int(p.Points)
 
-	field1 := Field{FieldID: 0xAA, FieldSize: 1, Content: a}
-	field2 := Field{FieldID: 0xAA, FieldSize: 2, Content: b}
-	field3 := Field{FieldID: 0xAA, FieldSize: 3, Content: c}
+	a := binary.EncodeString(name)
+	b := binary.EncodeInt(place)
+	c := binary.EncodeInt(points)
 
-	fields := []Field{field1, field2, field3}
+	f1 := Field{FieldID: 0xAA, FieldSize: 1, Content: a}
+	f2 := Field{FieldID: 0xAA, FieldSize: 2, Content: b}
+	f3 := Field{FieldID: 0xAA, FieldSize: 3, Content: c}
+
+	fields := []Field{f1, f2, f3}
 
 	return fields
 }
