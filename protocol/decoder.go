@@ -1,10 +1,11 @@
-package model
+package protocol
 
 import (
 	"../binary"
+	"../model"
 )
 
-func PlayerFromFields(f []Field) model.Player {
+func DecodePlayer(f []Field) model.Player {
 	a := f[0].Content
 	b := f[1].Content
 	c := f[2].Content
@@ -18,7 +19,7 @@ func PlayerFromFields(f []Field) model.Player {
 	return player
 }
 
-func PointFromFields(f []Field) model.Point {
+func DecodePoint(f []Field) model.Point {
 	x := f[0].Content
 	y := f[1].Content
 
