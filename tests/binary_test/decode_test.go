@@ -7,7 +7,7 @@ import (
 
 func TestDecode (t *testing.T) {
 	buff 			:= []byte{4, 1}
-	result 			:= binary.Decode(buff)
+	result 			:= binary.DecodeInt(buff)
 	final 			:= 260
 
 	if result != final {

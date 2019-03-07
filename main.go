@@ -86,14 +86,14 @@ func main() {
 
 		packetType 		:= protocol.CANVAS
 		packetSubtype 	:= protocol.LINE_BEGINNING
-		fields 			:= protocol.FieldsFromPoint(point)
+		fields 			:= protocol.EncodePoint(point)
 
 		pack := protocol.Packet{
 			PacketType:		packetType,
 			PacketSubtype:	packetSubtype,
 			Fields:			fields,
 		}
-
-		_ := protocol.Pack(pack)
+		_ := pack
+		//_ := protocol.Pack(pack)
 	}
 }

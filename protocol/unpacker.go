@@ -1,14 +1,7 @@
 package protocol
 
-import "fmt"
-
 // распаковщик принимает на вход последодвательность байт, коллекцию типов сообщений
 // а возвращает пакет, готовый к использованию
-
-func Sum (a int, b int) int {
-	fmt.Printf("1!!!!")
-	return a + b
-}
 
 func Unpack(buff []byte) Packet {
 	packetType 		:= buff[0]

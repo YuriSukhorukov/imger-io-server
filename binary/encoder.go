@@ -1,6 +1,6 @@
 package binary
 
-func Encode(number int) []byte {
+func EncodeInt(number int) []byte {
 	cursor		:= number
 	bytesCount 	:= 0
 	for cursor != 0 {
@@ -12,5 +12,10 @@ func Encode(number int) []byte {
 		buff[i] = byte(number)
 		number >>= 8
 	}
+	return buff
+}
+
+func EncodeString(str string) []byte {
+	buff := []byte(str)
 	return buff
 }

@@ -1,20 +1,25 @@
 package protocol
 
 import (
+	"../binary"
 	"../model"
 )
 
-func PlayerFromFields(f []Field) model.Player {
-	name := f[0].Content
-	place := f[1].Content
-	points := f[2].Content
+func DecodePlayer(f []Field) model.Player {
+	a := f[0].Content
+	b := f[1].Content
+	c := f[2].Content
 
-	player := model.Player{Name: string(name), Place: place[0], Points: points[0]}
+	name 	:= binary.DecodeString(a)
+	place 	:= binary.DecodeInt(b)
+	points 	:= binary.DecodeInt(c)
+
+	player := model.Player{Name: name, Place: uint8(place), Points: uint8(points)}
 
 	return player
 }
 
-func PointFromFields(f []Field) model.Point {
+func DecodePoint(f []Field) model.Point {
 	x := f[0].Content
 	y := f[1].Content
 

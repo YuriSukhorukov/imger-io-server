@@ -1,32 +1,33 @@
 package protocol
 
-import (
-	"../model"
-	"fmt"
-	"unsafe"
-)
+import "../model"
+import "../binary"
 
-func FieldsFromPlayer(p model.Player) []Field {
-	a := []byte(p.Name)
-	b := []byte{byte(p.Place)}
-	c := []byte{byte(p.Points)}
+func EncodePlayer(p model.Player) []Field {
+	name 	:= p.Name
+	place 	:= int(p.Place)
+	points 	:= int(p.Points)
 
-	field1 := Field{FieldID: 0xAA, FieldSize: 1, Content: a}
-	field2 := Field{FieldID: 0xAA, FieldSize: 2, Content: b}
-	field3 := Field{FieldID: 0xAA, FieldSize: 3, Content: c}
+	a := binary.EncodeString(name)
+	b := binary.EncodeInt(place)
+	c := binary.EncodeInt(points)
 
-	fields := []Field{field1, field2, field3}
+	f1 := Field{FieldID: 0xAA, FieldSize: 1, Content: a}
+	f2 := Field{FieldID: 0xAA, FieldSize: 2, Content: b}
+	f3 := Field{FieldID: 0xAA, FieldSize: 3, Content: c}
+
+	fields := []Field{f1, f2, f3}
 
 	return fields
 }
 
-func FieldsFromPoint(p model.Point) []Field {
-	a := make([]byte, unsafe.Sizeof(p.X))
-	b := make([]byte, unsafe.Sizeof(p.Y))
+func EncodePoint(p model.Point) []Field {
+	a := []byte{byte(p.X)}
+	b := []byte{byte(p.Y)}
 
-	field1 := Field{FieldID: 0xAA, FieldSize: byte(len(a)), Content: a}
-	field2 := Field{FieldID: 0xAA, FieldSize: byte(len(a)), Content: b}
-	fmt.Printf("%d\n", len(a))
+	field1 := Field{FieldID: 0xAA, FieldSize: 1, Content: a}
+	field2 := Field{FieldID: 0xAA, FieldSize: 2, Content: b}
+
 	fields := []Field{field1, field2}
 
 	return fields
