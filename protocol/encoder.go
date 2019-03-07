@@ -1,9 +1,9 @@
-package model
+package protocol
 
-import "./"
+import "../model"
 import "../binary"
 
-func FieldsFromPlayer(p model.Player) []Field {
+func EncodePlayer(p model.Player) []Field {
 	name 	:= p.Name
 	place 	:= int(p.Place)
 	points 	:= int(p.Points)
@@ -21,7 +21,7 @@ func FieldsFromPlayer(p model.Player) []Field {
 	return fields
 }
 
-func FieldsFromPoint(p model.Point) []Field {
+func EncodePoint(p model.Point) []Field {
 	a := []byte{byte(p.X)}
 	b := []byte{byte(p.Y)}
 
