@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestEncode (t *testing.T) {
+func TestEncodeInt(t *testing.T) {
 	number		:= 510
 	result 		:= binary.EncodeInt(number)
 	final 		:= []byte{254, 1}

@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestDecode (t *testing.T) {
+func TestDecodeInt(t *testing.T) {
 	buff 			:= []byte{4, 1}
 	result 			:= binary.DecodeInt(buff)
 	final 			:= 260
