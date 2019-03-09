@@ -1,31 +1,27 @@
 package protocol
 
+import "fmt"
+
 // упаковщик принимает на вход последовательность байт, тип сообщения,
 // а возвращает пакет, готовый к отправке
 
-func Pack(packet Packet) /*[]byte*/ {
-	//packetOffset 	:= 2
-	//fieldOffset 	:= 2
-	//fieldsLength 	:= 0
-	//
-	//for i := range packet.Fields {
-	//	fieldsLength += fieldOffset
-	//	fieldsLength += int(packet.Fields[i].FieldSize)
-	//}
-	//
-	//fields := make([]byte, fieldsLength)
-	//for i := range packet.Fields {
-	//	fields = append(fields, packet.Fields[i].FieldID)
-	//	fields = append(fields, packet.Fields[i].FieldSize)
-	//	fields = append(fields, packet.Fields[i].Content...)
-	//}
-	//
-	//buff := make([]byte, fieldsLength + packetOffset + 1)
-	//
-	//buff[0] 			= packet.PacketType
-	//buff[1] 			= packet.PacketSubtype
-	//buff[2:] 			= fields
-	//buff[len(buff)-1] 	= 0x00
+func Pack(packet Packet) []byte {
+	fields := make([]byte, 0)
+	for i := range packet.Fields {
+		fields = append(fields, packet.Fields[i].FieldID)
+		fields = append(fields, packet.Fields[i].FieldSize)
+		fields = append(fields, packet.Fields[i].Content...)
+	}
 
-	//return buff
+	buff := make([]byte, 0)
+	buff = append(buff, packet.PacketType)
+	buff = append(buff, packet.PacketSubtype)
+	buff = append(buff, fields...)
+	buff = append(buff, 0x00)
+
+	fmt.Printf("%d\n", packet.Fields)
+	fmt.Printf("%d\n", fields)
+	fmt.Printf("%d\n", buff)
+
+	return buff
 }
