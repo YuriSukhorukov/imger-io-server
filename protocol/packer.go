@@ -1,7 +1,5 @@
 package protocol
 
-import "fmt"
-
 // упаковщик принимает на вход последовательность байт, тип сообщения,
 // а возвращает пакет, готовый к отправке
 
@@ -18,8 +16,6 @@ func Pack(packet Packet) []byte {
 	buff = append(buff, packet.PacketSubtype)
 	buff = append(buff, fields...)
 	buff = append(buff, 0x00)
-
-	fmt.Printf("packet: %v\n", buff)
 
 	return buff
 }
