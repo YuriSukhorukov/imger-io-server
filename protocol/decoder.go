@@ -23,7 +23,7 @@ func DecodePoint(f []Field) model.Point {
 	x := f[0].Content
 	y := f[1].Content
 
-	point := model.Point{X: uint16(x[0]), Y: uint16(y[0])}
+	point := model.Point{X: uint(x[0]), Y: uint(y[0])}
 
 	return point
 }

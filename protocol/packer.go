@@ -19,9 +19,7 @@ func Pack(packet Packet) []byte {
 	buff = append(buff, fields...)
 	buff = append(buff, 0x00)
 
-	fmt.Printf("%d\n", packet.Fields)
-	fmt.Printf("%d\n", fields)
-	fmt.Printf("%d\n", buff)
+	fmt.Printf("packet: %v\n", buff)
 
 	return buff
 }

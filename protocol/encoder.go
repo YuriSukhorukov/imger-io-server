@@ -1,6 +1,8 @@
 package protocol
 
-import "../model"
+import (
+	"../model"
+)
 import "../binary"
 
 func EncodePlayer(p model.Player) []Field {
@@ -22,8 +24,8 @@ func EncodePlayer(p model.Player) []Field {
 }
 
 func EncodePoint(p model.Point) []Field {
-	a := []byte{byte(p.X)}
-	b := []byte{byte(p.Y)}
+	a := binary.EncodeInt(int(p.X))
+	b := binary.EncodeInt(int(p.Y))
 
 	field1 := Field{FieldID: 0xAA, FieldSize: byte(len(a)), Content: a}
 	field2 := Field{FieldID: 0xAA, FieldSize: byte(len(b)), Content: b}

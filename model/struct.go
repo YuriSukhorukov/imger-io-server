@@ -7,8 +7,8 @@ type Player struct {
 }
 
 type Point struct {
-	X uint16
-	Y uint16
+	X uint
+	Y uint
 }
 
 type Message struct {

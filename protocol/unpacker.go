@@ -1,7 +1,5 @@
 package protocol
 
-import "fmt"
-
 // распаковщик принимает на вход последодвательность байт, коллекцию типов сообщений
 // а возвращает пакет, готовый к использованию
 
@@ -13,18 +11,15 @@ func Unpack(buff []byte) Packet {
 
 	var fieldID 	byte
 	var fieldSize 	byte
-	fmt.Printf("buff size: %d\n", len(buff))
 
-	for i := 2; i + 2 + int(fieldSize) < len(buff); i += 2 + int(fieldSize) {
-		fmt.Printf("index: %d\n", i)
-		fieldID 	= buff[i]
-		fieldSize 	= buff[i + 1]
-		fmt.Printf("field id: %d \n", int(fieldID))
-		fmt.Printf("field size: %d \n", int(fieldSize))
-		fmt.Printf("slice from: %d to %d\n", i+2, i+2+int(fieldSize))
-		fmt.Printf("content: %v \n", buff[i+2:i+2+int(fieldSize)])
-		content		:= buff[i+2:i+2+int(fieldSize)]
-		fields 		= append(fields, Field{FieldID: fieldID, FieldSize: fieldSize, Content: content})
+	for i := 2; i < len(buff) - 1; i += 2 + int(buff[i+1])  {
+		fieldID = buff[i]
+		fieldSize = buff[i+1]
+		contentStartIndex := i + 2
+		contentEndIndex := contentStartIndex + int(fieldSize)
+
+		content := buff[contentStartIndex:contentEndIndex]
+		fields = append(fields, Field{FieldID: fieldID, FieldSize: fieldSize, Content: content})
 	}
 
 	packet := Packet{
@@ -32,8 +27,6 @@ func Unpack(buff []byte) Packet {
 		PacketSubtype: 	packetSubtype,
 		Fields: 		fields,
 	}
-
-	fmt.Printf("%v: \n", packet)
 
 	return packet
 }
