@@ -6,31 +6,33 @@ import (
 import "../binary"
 
 func EncodePlayer(p model.Player) []Field {
-	name 	:= p.Name
-	place 	:= int(p.Place)
-	points 	:= int(p.Points)
-
-	a := binary.EncodeString(name)
-	b := binary.EncodeInt(place)
-	c := binary.EncodeInt(points)
-
-	f1 := Field{FieldID: 0xAA, FieldSize: byte(len(a)), Content: a}
-	f2 := Field{FieldID: 0xAA, FieldSize: byte(len(b)), Content: b}
-	f3 := Field{FieldID: 0xAA, FieldSize: byte(len(c)), Content: c}
-
-	fields := []Field{f1, f2, f3}
-
-	return fields
+	name 		:= binary.EncodeString(p.Name)
+	place 		:= binary.EncodeInt(int(p.Place))
+	points		:= binary.EncodeInt(int(p.Points))
+	f1 			:= Field{FieldID: 0xAA, FieldSize: byte(len(name)), Content: name}
+	f2 			:= Field{FieldID: 0xAA, FieldSize: byte(len(place)), Content: place}
+	f3 			:= Field{FieldID: 0xAA, FieldSize: byte(len(points)), Content: points}
+	return 		[]Field{f1, f2, f3}
 }
 
 func EncodePoint(p model.Point) []Field {
-	a := binary.EncodeInt(int(p.X))
-	b := binary.EncodeInt(int(p.Y))
+	x 			:= binary.EncodeInt(int(p.X))
+	y 			:= binary.EncodeInt(int(p.Y))
+	f1 			:= Field{FieldID: 0xAA, FieldSize: byte(len(x)), Content: x}
+	f2 			:= Field{FieldID: 0xAA, FieldSize: byte(len(y)), Content: y}
+	return 	    []Field{f1, f2}
+}
 
-	field1 := Field{FieldID: 0xAA, FieldSize: byte(len(a)), Content: a}
-	field2 := Field{FieldID: 0xAA, FieldSize: byte(len(b)), Content: b}
+func EncodeMessage(m model.Message) []Field {
+	name 		:= binary.EncodeString(m.Name)
+	text 		:= binary.EncodeString(m.Text)
+	f1 			:= Field{FieldID: 0xAA, FieldSize: byte(len(name)), Content: name}
+	f2 			:= Field{FieldID: 0xAA, FieldSize: byte(len(text)), Content: text}
+	return 	    []Field{f1, f2}
+}
 
-	fields := []Field{field1, field2}
-
-	return fields
+func EncodeTime(t model.Time) []Field {
+	seconds 	:= binary.EncodeInt(int(t.Seconds))
+	f1 			:= Field{FieldID: 0xAA, FieldSize: byte(len(seconds)), Content: seconds}
+	return 	    []Field{f1}
 }
