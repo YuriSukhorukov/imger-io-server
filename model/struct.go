@@ -17,5 +17,5 @@ type Message struct {
 }
 
 type Time struct {
-	Seconds uint16
+	Seconds uint
 }
