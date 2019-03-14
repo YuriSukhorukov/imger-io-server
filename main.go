@@ -7,7 +7,6 @@ import (
 import "os"
 import "fmt"
 import "./protocol"
-import "./model"
 
 // требуется только ниже для обработки примера
 
@@ -15,24 +14,6 @@ const CONN_HOST = "localhost"
 const CONN_PORT = ":8081"
 const CONN_TYPE = "tcp"
 const CONN_URL  = CONN_HOST + ":" + CONN_PORT
-
-const MESSAGE_0xAA = 0xAA
-const MESSAGE_0xAF = 0xAF
-
-// PacketType - первый байт, определяюзий тип пакета
-// Content 	  - содержимое пакета
-//type Field struct {
-//	FieldID byte
-//	FieldSize byte
-//	Contents []byte
-//}
-
-type Packet struct {
-	PacketType byte
-	//PacketSubtype byte
-	Content []byte
-	//Fields []Field
-}
 
 func main() {
 	fmt.Println("Launching server...")
@@ -58,42 +39,22 @@ func main() {
 		//data := make([]byte, 1024)
 		//message, _ := conn.Read(data)
 		//s := string(data[:message])
-		//// Распечатываем полученое сообщение
-		//fmt.Print("Message Received: ", s)
-		//fmt.Print("Message Received: ", data)
-		//// Процесс выборки для полученной строки
-		//// Отправить новую строку обратно клиенту
-		//conn.Write([]byte(s))
-		//fmt.Printf("\n---<<<")
 
 		buff, err := bufio.NewReader(conn).ReadBytes(0x00)
 		if err != nil {
 			return
 		}
-		packet := Packet{buff[0], buff[1:len(buff)-2]}
 
-		if packet.PacketType == MESSAGE_0xAA {
-			fmt.Printf("Message type: MESSAGE_0xAA \n")
-		} else if packet.PacketType == MESSAGE_0xAF {
-			fmt.Printf("Message type: MESSAGE_0xAA \n")
+		packet := protocol.Unpack(buff)
+		if packet.PacketType == protocol.ENTITY &&
+			packet.PacketSubtype == protocol.PLAYER {
+			player := protocol.DecodePlayer(packet.Fields)
+			fmt.Printf("player from packet:  %v\n", player)
+			fmt.Printf("received packet:     %v\n", packet)
 		}
 
-		fmt.Printf(string(packet.Content))
-
-
-
-		point 			:= model.Point{X: 1, Y: 2}
-
-		packetType 		:= protocol.CANVAS
-		packetSubtype 	:= protocol.LINE_BEGINNING
-		fields 			:= protocol.EncodePoint(point)
-
-		pack := protocol.Packet{
-			PacketType:		packetType,
-			PacketSubtype:	packetSubtype,
-			Fields:			fields,
-		}
-		_ := pack
-		//_ := protocol.Pack(pack)
+		//// Отправить новую строку обратно клиенту
+		//conn.Write([]byte(s))
+		//fmt.Printf("\n---<<<")
 	}
 }
