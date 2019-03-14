@@ -7,7 +7,7 @@ func EncodeInt(number int) []byte {
 		bytesCount++
 		cursor >>= 8
 	}
-	buff := make([]byte, bytesCount)
+	buff            := make([]byte, bytesCount)
 	for i := 0; i < len(buff); i++ {
 		buff[i] = byte(number)
 		number >>= 8
@@ -16,6 +16,6 @@ func EncodeInt(number int) []byte {
 }
 
 func EncodeString(str string) []byte {
-	buff := []byte(str)
+	buff   := []byte(str)
 	return buff
 }
