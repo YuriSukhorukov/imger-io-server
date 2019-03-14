@@ -12,7 +12,7 @@ func EncodeInt(number int) []byte {
 		buff[i] = byte(number)
 		number >>= 8
 	}
-	return buff
+	return  buff
 }
 
 func EncodeString(str string) []byte {
