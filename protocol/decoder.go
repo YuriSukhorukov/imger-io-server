@@ -13,8 +13,8 @@ func DecodePlayer(f []Field) model.Player {
 }
 
 func DecodePoint(f []Field) model.Point {
-	x 			:= binary.DecodeInt(f[0].Content)
-	y 			:= binary.DecodeInt(f[1].Content)
+	x 		:= binary.DecodeInt(f[0].Content)
+	y 		:= binary.DecodeInt(f[1].Content)
 	return	 	model.Point{X: uint(x), Y: uint(y)}
 }
 
