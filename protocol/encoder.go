@@ -25,9 +25,9 @@ func EncodePoint(p model.Point) []Field {
 
 func EncodeMessage(m model.Message) []Field {
 	b1 	    := binary.EncodeString(m.Name)
-	b2 	    := binary.EncodeString(m.Text)
-	f1 	    := Field{FieldID: 0xAA, FieldSize: byte(len(b1)), Content: b1}
-	f2 	    := Field{FieldID: 0xAA, FieldSize: byte(len(b2)), Content: b2}
+	b2      := binary.EncodeString(m.Text)
+	f1      := Field{FieldID: 0xAA, FieldSize: byte(len(b1)), Content: b1}
+	f2      := Field{FieldID: 0xAA, FieldSize: byte(len(b2)), Content: b2}
 	return  []Field{f1, f2}
 }
 
