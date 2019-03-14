@@ -10,12 +10,10 @@ func Pack(packet Packet) []byte {
 		fields = append(fields, packet.Fields[i].FieldSize)
 		fields = append(fields, packet.Fields[i].Content...)
 	}
-
 	buff := make([]byte, 0)
 	buff = append(buff, packet.PacketType)
 	buff = append(buff, packet.PacketSubtype)
 	buff = append(buff, fields...)
 	buff = append(buff, 0x00)
-
 	return buff
 }
