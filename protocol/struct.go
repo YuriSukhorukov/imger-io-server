@@ -1,19 +1,19 @@
 package protocol
 
 type Field struct {
-	FieldID byte
-	FieldSize byte
-	Content []byte
+	FieldID         byte
+	FieldSize       byte
+	Content         []byte
 }
 
 type Packet struct {
-	PacketType byte
-	PacketSubtype byte
-	Fields []Field
+	PacketType      byte
+	PacketSubtype   byte
+	Fields          []Field
 }
 
 type Queue struct {
-	Packets []Packet
+	Packets         []Packet
 }
 
 // тип пакета
