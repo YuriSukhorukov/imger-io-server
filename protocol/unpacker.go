@@ -12,7 +12,7 @@ func Unpack(buff []byte) Packet {
 	var fieldSize 	byte
 	for i := 2; i < len(buff) - 1; i += 2 + int(buff[i + 1])  {
 		fieldID 		= buff[i]
-		fieldSize 		= buff[i+1]
+		fieldSize 		= buff[i + 1]
 		contentStartIndex 	:= i + 2
 		contentEndIndex 	:= contentStartIndex + int(fieldSize)
 		content 		:= buff[contentStartIndex:contentEndIndex]
