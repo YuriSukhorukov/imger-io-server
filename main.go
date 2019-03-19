@@ -33,28 +33,9 @@ func main() {
 	defer conn.Close()
 	// Запускаем цикл
 	for {
-		fmt.Printf("\n--->>>\n")
-		// Будем прослушивать все сообщения разделенные \n
-		//message, _ := bufio.NewReader(conn).ReadString('\n')
-		//data := make([]byte, 1024)
-		//message, _ := conn.Read(data)
-		//s := string(data[:message])
-
 		buff, err := bufio.NewReader(conn).ReadBytes(0x00)
 		if err != nil {
 			return
 		}
-
-		packet := protocol.Unpack(buff)
-		if packet.PacketType == protocol.ENTITY &&
-			packet.PacketSubtype == protocol.PLAYER {
-			player := protocol.DecodePlayer(packet.Fields)
-			fmt.Printf("player from packet:  %v\n", player)
-			fmt.Printf("received packet:     %v\n", packet)
-		}
-
-		//// Отправить новую строку обратно клиенту
-		//conn.Write([]byte(s))
-		//fmt.Printf("\n---<<<")
 	}
 }
