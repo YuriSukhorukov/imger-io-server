@@ -13,7 +13,7 @@ func Stream(conn net.Conn) {
 			return
 		}
 
-		packet                := protocol.Unpack(buff)
+		packet                  := protocol.Unpack(buff)
 		PacketsChannelIO[conn]  <- packet
 
 		// Каждое подключение работает в отдельном потоке
