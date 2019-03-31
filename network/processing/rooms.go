@@ -4,11 +4,7 @@ import (
 	"net"
 )
 
-type Room struct {
-	Connections []*net.Conn
-}
-
-var Rooms = make(map[string]Room)
+var Rooms = make(map[string][]net.Conn)
 
 // Rooms - карта коллекций соединений
 // Rooms = [roomID:[connID, connID, ...], roomID:[connID, connID, ...], ...]

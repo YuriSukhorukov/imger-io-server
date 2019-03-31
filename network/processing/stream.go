@@ -1,10 +1,9 @@
 package processing
 
 import (
-	"bufio"
-	"fmt"
-	"net"
 	"../../protocol"
+	"bufio"
+	"net"
 )
 
 func Stream(conn net.Conn) {
@@ -13,15 +12,12 @@ func Stream(conn net.Conn) {
 		if err != nil {
 			return
 		}
-		fmt.Printf("%v\n", buff)
-
-		packet := protocol.Unpack(buff)
-		PacketsQueueIO[&conn] = append(PacketsQueueIO[&conn], packet)
+å
+		packet                := protocol.Unpack(buff)
+		PacketsQueueIO[conn]  <- packet
 
 		// Каждое подключение работает в отдельном потоке
 		// Каждый новый пакет из потока подключения попадает в общую очередь пакетов
 		// На каждый поток подключения приходитя свой поток обработки пакетов
-
-		// conn.Write(protocol.Pack(packet))
 	}
 }
