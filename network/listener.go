@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"./processing"
+	"./config"
 )
 
 func Open() {
-	ln, err := net.Listen(CONN_TYPE, CONN_PORT)
+	ln, err := net.Listen(config.CONN_TYPE, config.CONN_PORT)
 	fmt.Println("Launching server...")
 	if err != nil {
 		fmt.Println("Error listening: ", err.Error())
@@ -22,7 +24,7 @@ func Open() {
 		}
 		if conn != nil {
 			fmt.Printf("New connection\n")
-			go Stream(conn)
+			processing.AddConnection(conn)
 		}
 	}
 }
