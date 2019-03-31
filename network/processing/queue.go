@@ -5,11 +5,8 @@ import (
 	"../../protocol"
 )
 
-//var PacketsQueueIO       = make(map[*net.Conn][]protocol.Packet)
-var PacketsQueueIO       = make(map[net.Conn]chan protocol.Packet)
-var PacketsQueueSome1    = make(map[net.Conn]chan protocol.Packet)
-var PacketsQueueSome2    = make(map[net.Conn]chan protocol.Packet)
-var PacketsQueueSome3    = make(map[net.Conn]chan protocol.Packet)
-var PacketsQueueNewRoom  = make(map[net.Conn]chan protocol.Packet)
-
-//var chanel = make(chan protocol.Packet)
+var PacketsChannelIO       = make(map[net.Conn]chan protocol.Packet)
+var PacketsChannelSome1    = make(map[net.Conn]chan protocol.Packet)
+var PacketsChannelSome2    = make(map[net.Conn]chan protocol.Packet)
+var PacketsChannelSome3    = make(map[net.Conn]chan protocol.Packet)
+var PacketsChannelNewRoom  = make(map[net.Conn]chan protocol.Packet)

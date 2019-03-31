@@ -7,17 +7,17 @@ import (
 
 func AddConnection(conn net.Conn) {
 	Connections[conn]           = conn
-	PacketsQueueIO[conn]        = make(chan protocol.Packet)
-	PacketsQueueSome1[conn]     = make(chan protocol.Packet)
-	PacketsQueueSome2[conn]     = make(chan protocol.Packet)
-	PacketsQueueSome3[conn]     = make(chan protocol.Packet)
-	PacketsQueueNewRoom[conn]   = make(chan protocol.Packet)
+	PacketsChannelIO[conn]        = make(chan protocol.Packet)
+	PacketsChannelSome1[conn]     = make(chan protocol.Packet)
+	PacketsChannelSome2[conn]     = make(chan protocol.Packet)
+	PacketsChannelSome3[conn]     = make(chan protocol.Packet)
+	PacketsChannelNewRoom[conn]   = make(chan protocol.Packet)
 	go Stream(conn)
-	go PacketsQueueSystemIO(PacketsQueueIO[conn], conn)
-	go PacketsQueueSystemSome1(PacketsQueueSome1[conn], conn)
-	go PacketsQueueSystemSome2(PacketsQueueSome2[conn], conn)
-	go PacketsQueueSystemSome3(PacketsQueueSome3[conn], conn)
-	go PacketNewRoomQueueSystem(PacketsQueueNewRoom[conn], conn)
+	go PacketsChannelSystemIO(PacketsChannelIO[conn], conn)
+	go PacketsChannelSystemSome1(PacketsChannelSome1[conn], conn)
+	go PacketsChannelSystemSome2(PacketsChannelSome2[conn], conn)
+	go PacketsChannelSystemSome3(PacketsChannelSome3[conn], conn)
+	go PacketNewRoomChannelSystem(PacketsChannelNewRoom[conn], conn)
 }
 
 func RemoveConnection(key net.Conn) {

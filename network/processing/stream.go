@@ -12,9 +12,9 @@ func Stream(conn net.Conn) {
 		if err != nil {
 			return
 		}
-å
+
 		packet                := protocol.Unpack(buff)
-		PacketsQueueIO[conn]  <- packet
+		PacketsChannelIO[conn]  <- packet
 
 		// Каждое подключение работает в отдельном потоке
 		// Каждый новый пакет из потока подключения попадает в общую очередь пакетов
