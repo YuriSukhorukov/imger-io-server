@@ -16,7 +16,8 @@ func Unpack(buff []byte) Packet {
 		contentStartIndex 	:= i + 2
 		contentEndIndex 	:= contentStartIndex + int(fieldSize)
 		content 		:= buff[contentStartIndex:contentEndIndex]
-		fields 			= append(fields, Field{FieldID: fieldID, FieldSize: fieldSize, Content: content})
+		field                   := Field{FieldID: fieldID, FieldSize: fieldSize, Content: content}
+		fields 			= append(fields, field)
 	}
 	packet  := Packet{
 		PacketType: 	packetType,

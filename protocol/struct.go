@@ -1,15 +1,15 @@
 package protocol
 
-type Field struct {
-	FieldID         byte
-	FieldSize       byte
-	Content         []byte
-}
-
 type Packet struct {
 	PacketType      byte
 	PacketSubtype   byte
 	Fields          []Field
+}
+
+type Field struct {
+	FieldID         byte
+	FieldSize       byte
+	Content         []byte
 }
 
 type Queue struct {
