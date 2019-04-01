@@ -6,7 +6,7 @@ import (
 )
 
 func AddConnection(conn net.Conn) {
-	Connections[conn]           = conn
+	Connections[conn]             = conn
 	PacketsChannelIO[conn]        = make(chan protocol.Packet)
 	PacketsChannelSome1[conn]     = make(chan protocol.Packet)
 	PacketsChannelSome2[conn]     = make(chan protocol.Packet)
